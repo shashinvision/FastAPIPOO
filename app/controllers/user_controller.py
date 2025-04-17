@@ -1,26 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-
+from app.models.user_model import UserRead, UserCreate
 from app.db.database import get_db
 from app.services import user_service
-from pydantic import BaseModel
 
 router = APIRouter(prefix="/users", tags=["Users"])
-
-
-class UserCreate(BaseModel):
-    username: str
-    email: str
-
-
-class UserRead(BaseModel):
-    id: int
-    username: str
-    email: str
-
-    class Config:
-        orm_mode = True
 
 
 @router.get("/", response_model=List[UserRead])

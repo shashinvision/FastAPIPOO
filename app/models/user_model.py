@@ -1,10 +1,15 @@
-from sqlalchemy import Column, Integer, String
-from app.db.database import Base
+from pydantic import BaseModel
 
 
-class User(Base):
-    __tablename__ = "users"
+class UserCreate(BaseModel):
+    username: str
+    email: str
 
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
-    email = Column(String, unique=True, index=True)
+
+class UserRead(BaseModel):
+    id: int
+    username: str
+    email: str
+
+    class Config:
+        orm_mode = True
