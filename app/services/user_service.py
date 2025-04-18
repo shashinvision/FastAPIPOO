@@ -1,18 +1,12 @@
-from sqlalchemy.orm import Session
-from app.repository.user_repository import User
+from app.repository import user_repository
 
 
-def get_users(db: Session):
-    return db.query(User).all()
+class UserService:
+    def get_users(self):
+        return user_repository.get_all_users()
 
+    def get_user_by_id(self, user_id: int):
+        return user_repository.get_user_by_id(user_id)
 
-def get_user_by_id(db: Session, user_id: int):
-    return db.query(User).filter(User.id == user_id).first()
-
-
-def create_user(db: Session, username: str, email: str):
-    db_user = User(username=username, email=email)
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+    def create_user(self, username: str, email: str):
+        return user_repository.create_user(username, email)
