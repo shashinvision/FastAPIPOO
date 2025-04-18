@@ -1,4 +1,4 @@
-from app.models.user_model import User
+from app.models.entities.user_entity import User
 from app.db.database import SessionLocal
 
 # Repository functions using SessionLocal directly
